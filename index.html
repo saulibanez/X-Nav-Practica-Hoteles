@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+		<title>Hoteles Madrid</title>
+
+		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+		<link href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" rel="stylesheet">
+		<link href="css/hoteles.css" rel="stylesheet">
+
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.3.min.js"></script>
+		<script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+		<script type="text/javascript" src="alojamientos.js"></script>
+		<script type="text/javascript" src="js/hoteles.js"></script>
+	</head>
+
+	<body>
+		<header>
+			<nav class="navbar navbar-inverse navbar-static-top" role="navigation">
+				<div class="container">
+					<div class="navbar-header">
+						<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navegacion">
+							<span class="sr-only">Desplegar / Ocultar Menú</span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</button>
+						<img class="navbar-brand" src="images/madrid.png" height="30px" margin-top="-3px" margin-right="5px">
+						<a class="navbar-brand" href="#">Madrid Hoteles</a>
+					</div>
+				</div>
+			</nav>
+		</header>
+
+		<!-- <audio id="player" src="Aleluya.mp3">
+		</audio>
+		<div>
+		    <button onclick="document.getElementById('player').play();">Reproducir</button>
+		    <button onclick="document.getElementById('player').pause();">Pausa</button>
+		    <button onclick="document.getElementById('player').volume += 0.1;">Subir Volumen</button>
+		    <button onclick="document.getElementById('player').volume -= 0.1;">Bajar Volumen</button>
+		</div> -->
+
+		<div id="map"></div>
+		<p id="desc"></p>
+		<button id="get" class="btn btn-primary">Get hotels!</button>
+		<div id="list"></div>
+
+	</body>
+
+</html>

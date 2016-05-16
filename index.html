@@ -10,11 +10,12 @@
 		<link href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" rel="stylesheet">
 		<link href="css/hoteles.css" rel="stylesheet">
 
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.3.min.js"></script>
 		<script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
 		<script type="text/javascript" src="alojamientos.js"></script>
 		<script type="text/javascript" src="js/hoteles.js"></script>
+		<script type="text/javascript" src="js/bootstrap-tabcollapse.js"></script>
+
 	</head>
 
 	<body>
@@ -44,10 +45,38 @@
 		    <button onclick="document.getElementById('player').volume -= 0.1;">Bajar Volumen</button>
 		</div> -->
 
-		<div id="map"></div>
-		<p id="desc"></p>
-		<button id="get" class="btn btn-primary">Get hotels!</button>
-		<div id="list"></div>
+		<div class="col-md-8">
+			<div class="container" id="navegacion" style="margin-top: 50px;">
+				<ul id="myTab" class="nav nav-tabs" style="margin-bottom: 15px;">
+					<li class="active"><a href="#map" data-toggle="tab">Mapa</a></li>
+					<li><a href="#colecciones" data-toggle="tab">Colecciones</a></li>
+					<li><a href="#alojados" data-toggle="tab">Alojados</a></li>
+				</ul>
+
+				<div id="myTabContent" class="tab-content" >
+					<div class="tab-pane fade in active" id="map"></div>
+					<div class="tab-pane fade" id="colecciones">
+						<p>De momento en coleccion se va a poner la descripción del hotel.</p>
+						<p id="desc"></p>
+					</div>
+					<div class="tab-pane fade" id="alojados">
+						<p>Alojados</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-md-4" id="sidebar" role="navigation" style="float:left">
+			<div class="well sidebar-nav">
+				<ul class="nav" id="scroll">
+					<button id="get" class="btn btn-primary">Get hotels!</button>
+					<div id="list"></div>
+				</ul>
+			</div>
+		</div>
+
+		<!-- Bootstrap -->
+		<script type="text/javascript" src="js/bootstrap.min.js"></script>		
 
 	</body>
 

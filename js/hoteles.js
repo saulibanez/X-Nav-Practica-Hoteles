@@ -19,7 +19,6 @@ function get_accomodations(){
   $.getJSON("alojamientos.json", function(data) {
     $('#get').html('');
     accomodations = data.serviceList.service
-    $('#list').after('<h1>' + accomodations.length + '</h1>');
     var list = '<p>Hotels found: ' + accomodations.length
      + ' (click on any of them for details and location in the map)</p>'
     list = list + '<ul>'
@@ -38,4 +37,7 @@ $(document).ready(function() {
 		attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
 	}).addTo(map);
 	$("#get").click(get_accomodations);
+
+	
+	// $("#scroll").scrollspy({ target: '#navbar-example' })
 });

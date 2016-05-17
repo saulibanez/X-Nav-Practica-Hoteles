@@ -1,6 +1,7 @@
 //https://github.com/CursosWeb/Code/blob/master/JS-APIs/misc/alojamientos/alojamientos.json
 
 function show_accomodation(){
+
 	var accomodation = accomodations[$(this).attr('no')];
 	var lat = accomodation.geoData.latitude;
 	var lon = accomodation.geoData.longitude;
@@ -10,7 +11,19 @@ function show_accomodation(){
 	var img = accomodation.multimedia.media[0].url;
 	var cat = accomodation.extradata.categorias.categoria.item[1]['#text'];
 	var subcat = accomodation.extradata.categorias.categoria.subcategorias.subcategoria.item[1]['#text'];
-	L.marker([lat, lon]).addTo(map).bindPopup('<a href="' + url + '">' + name + '</a><br/>').openPopup();
+	var marker = L.marker([lat, lon]).addTo(map).bindPopup('<a href="' + url + '">' + name + '</a><br/>').openPopup();
+
+	if($(this).css("color")=="rgb(0, 128, 0)"){
+		map.removeLayer(marker);
+		$($(this)).css("color","rgb(51, 51, 51)");
+	}else{
+		$($(this)).css("color","rgb(0, 128, 0)");
+	}
+
+	marker.on("popupclose", function(){
+		map.removeLayer(marker);
+	})
+
 	map.setView([lat, lon], 15);
 	$('#desc').html('<h2>' + name + '</h2>'	+ '<p>Type: ' + cat + ', subtype: ' + subcat + '</p>' + desc + '<img src="' + img + '"">');
 };

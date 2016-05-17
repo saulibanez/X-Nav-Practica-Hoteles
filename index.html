@@ -36,15 +36,6 @@
 			</nav>
 		</header>
 
-		<!-- <audio id="player" src="Aleluya.mp3">
-		</audio>
-		<div>
-		    <button onclick="document.getElementById('player').play();">Reproducir</button>
-		    <button onclick="document.getElementById('player').pause();">Pausa</button>
-		    <button onclick="document.getElementById('player').volume += 0.1;">Subir Volumen</button>
-		    <button onclick="document.getElementById('player').volume -= 0.1;">Bajar Volumen</button>
-		</div> -->
-
 		<div class="col-md-8">
 			<div class="container" id="navegacion" style="margin-top: 50px;">
 				<ul id="myTab" class="nav nav-tabs" style="margin-bottom: 15px;">
@@ -54,10 +45,24 @@
 				</ul>
 
 				<div id="myTabContent" class="tab-content" >
-					<div class="tab-pane fade in active" id="map"></div>
+					<div class="tab-pane fade in active" id="map"></div>				
 					<div class="tab-pane fade" id="colecciones">
-						<p>De momento en coleccion se va a poner la descripción del hotel.</p>
-						<p id="desc"></p>
+						<div class="categoria col-md-5" id="categoria">
+							<h5><b><u>CATEGORIA</u></b></h5>
+							<div class="category" id="1_star"><p>Hoteles 1 estrellas</p></div>
+							<div class="category" id="2_star"><p>Hoteles 2 estrellas</p></div>
+							<div class="category" id="3_star"><p>Hoteles 3 estrellas</p></div>
+							<div class="category" id="4_star"><p>Hoteles 4 estrellas</p></div>
+							<div class="category" id="5_star"><p>Hoteles 5 estrellas</p></div>
+						</div>
+						<div class="attributos col-md-5" id="atributos">
+							<h5><b><u>ATRIBUTOS</u></b></h5>
+							<div id="attr"></div>
+						</div>
+						<div class="listado col-md-5" id="listado">
+							<h5><b><u>LISTADO DE HOTELES</u></b></h5>
+							<div id="list_hoteles"></div>
+						</div>
 					</div>
 					<div class="tab-pane fade" id="alojados">
 						<p>Alojados</p>
@@ -73,6 +78,22 @@
 					<div id="list"></div>
 				</ul>
 			</div>
+		</div>
+
+		<div class="col-md-8">
+			<!-- <p id="desc"></p>
+			<p id="carousel"></p> -->
+		</div>
+
+		<div class="col-md-4 hidden-xs hidden-sm">
+			<!-- <audio id="player" src="Aleluya.mp3">
+			</audio>
+			<div>
+			    <button onclick="document.getElementById('player').play();">Reproducir</button>
+			    <button onclick="document.getElementById('player').pause();">Pausa</button>
+			    <button onclick="document.getElementById('player').volume += 0.1;">Subir Volumen</button>
+			    <button onclick="document.getElementById('player').volume -= 0.1;">Bajar Volumen</button>
+			</div> -->
 		</div>
 
 		<!-- Bootstrap -->

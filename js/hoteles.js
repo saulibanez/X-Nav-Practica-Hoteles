@@ -1,4 +1,9 @@
-//https://github.com/CursosWeb/Code/blob/master/JS-APIs/misc/alojamientos/alojamientos.json
+
+function viewStar(){
+	console.log("veo estrellas");
+
+	// $('#attr').html(list);
+}
 
 function show_accomodation(){
 
@@ -8,7 +13,8 @@ function show_accomodation(){
 	var url = accomodation.basicData.web;
 	var name = accomodation.basicData.name;
 	var desc = accomodation.basicData.body;
-	var img = accomodation.multimedia.media[0].url;
+	//var img = accomodation.multimedia.media[0].url;
+	// console.log(accomodation.multimedia.media);
 	var cat = accomodation.extradata.categorias.categoria.item[1]['#text'];
 	var subcat = accomodation.extradata.categorias.categoria.subcategorias.subcategoria.item[1]['#text'];
 	var marker = L.marker([lat, lon]).addTo(map).bindPopup('<a href="' + url + '">' + name + '</a><br/>').openPopup();
@@ -25,7 +31,17 @@ function show_accomodation(){
 	})
 
 	map.setView([lat, lon], 15);
-	$('#desc').html('<h2>' + name + '</h2>'	+ '<p>Type: ' + cat + ', subtype: ' + subcat + '</p>' + desc + '<img src="' + img + '"">');
+	$('#desc').html('<h2>' + name + '</h2>'	+ '<p>Type: ' + cat + ', subtype: ' + subcat + '</p>' + desc); // + '<img src="' + img + '"">');
+	
+	var img = new Array();
+	if(accomodation.multimedia != null){
+    	for(i in accomodation.multimedia.media){
+    		img[i] = accomodation.multimedia.media[i].url;
+    	}
+    }
+    // console.log(img);
+    $('#carousel').html('<img src="' + img[1] + '"">');
+
 };
 
 function get_accomodations(){
@@ -41,6 +57,7 @@ function get_accomodations(){
     list = list + '</ul>';
     $('#list').html(list);
     $('li').click(show_accomodation);
+	$('.category').click(viewStar);
   });
 };
 
@@ -50,7 +67,4 @@ $(document).ready(function() {
 		attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
 	}).addTo(map);
 	$("#get").click(get_accomodations);
-
-	
-	// $("#scroll").scrollspy({ target: '#navbar-example' })
 });

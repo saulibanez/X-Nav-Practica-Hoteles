@@ -1,8 +1,9 @@
+var collection = {};
 
 function viewStar(){
 	console.log("veo estrellas");
-
-	// $('#attr').html(list);
+	var cpylist = list;
+	$('#attr').html(cpylist);
 }
 
 function show_accomodation(){
@@ -13,8 +14,6 @@ function show_accomodation(){
 	var url = accomodation.basicData.web;
 	var name = accomodation.basicData.name;
 	var desc = accomodation.basicData.body;
-	//var img = accomodation.multimedia.media[0].url;
-	// console.log(accomodation.multimedia.media);
 	var cat = accomodation.extradata.categorias.categoria.item[1]['#text'];
 	var subcat = accomodation.extradata.categorias.categoria.subcategorias.subcategoria.item[1]['#text'];
 	var marker = L.marker([lat, lon]).addTo(map).bindPopup('<a href="' + url + '">' + name + '</a><br/>').openPopup();
@@ -40,7 +39,10 @@ function show_accomodation(){
     	}
     }
     // console.log(img);
-    $('#carousel').html('<img src="' + img[1] + '"">');
+    $('#1').html('<img src="' + img[0] + '"">');
+    $('#2').html('<img src="' + img[1] + '"">');
+    $('#3').html('<img src="' + img[2] + '"">');
+    $('#4').html('<img src="' + img[4] + '"">');
 
 };
 
@@ -58,6 +60,8 @@ function get_accomodations(){
     $('#list').html(list);
     $('li').click(show_accomodation);
 	$('.category').click(viewStar);
+	$("#list li").draggable({revert:true,appendTo:"body",helper:"clone"});
+	// $("#list li").sortable({connectWith: ".connectedSortable"}).disableSelection();
   });
 };
 
@@ -67,4 +71,52 @@ $(document).ready(function() {
 		attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
 	}).addTo(map);
 	$("#get").click(get_accomodations);
+
+	$("#form").submit(function(event) {
+		event.preventDefault();
+		var new_col = $("#date")[0].value;
+		$("#date")[0].value = "";
+		if (new_col == ""){ 
+			return;
+		}
+		$("#attr ul").append("<li>" + new_col + "</li>");
+		var alojamiento = [];
+		collection[new_col] = alojamiento;
+
+		$("#attr").click(function(event){
+		var coll = event.target.textContent;
+		$("#name_col ul").html(coll)
+
+		$("#list_hoteles ul").html("");
+		var hotel;
+			collection[coll].forEach(function(n){
+				hotel = n.basicData.name;
+				$("#list_hoteles ul").append("<li>" + hotel + "</li>");
+			});
+		});
+	});
+
+	$("#list_hoteles").droppable({
+		accept: "#list li",
+		activeClass: "ui-state-hover",
+		hoverClass: "ui-state-active",
+		drop: function(event, ui) {
+			var name = $("#name_col")[0].textContent;
+			
+			if (name == ""){
+				return;
+			}
+
+			var no = ui.draggable[0].attributes[0].value;
+			var hotel = accomodations[no].basicData.name;
+			collection[name].push(accomodations[no]);
+			$("#list_hoteles ul").append("<li>" + hotel + "</li>");
+		}
+	});
+
+	$('#Carousel').carousel({
+        interval: 5000
+    });
+
+
 });

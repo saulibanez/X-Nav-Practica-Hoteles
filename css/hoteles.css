@@ -29,9 +29,9 @@
     overflow-y:scroll; 
 }
 
-#listado, #categoria, #atributos {
-    width:100%;
-    max-height: 150px;
+#listado, #atributos {
+    width:35%;
+    height: 350px;
     overflow-y:scroll; 
     margin: auto;
     border-radius:7px;
@@ -39,5 +39,59 @@
     margin-left: 17px ;
     background-color: #f8f8f8 ;
     box-shadow: 0px 3px 18px 0px rgba(0,0,0,0.4);
+}
 
+.post {
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #999;
+}
+
+.post .post-title a {
+    color: #333;
+}
+
+.post .thumb {
+    margin-right: 10px;
+    width: 40%;
+}
+
+.post .thumb img {
+    width: 100%;
+}
+
+.post .contenedor-botones {
+    width: 100%;
+}
+
+.carousel {
+    margin-bottom: 0;
+    padding: 0 40px 30px 40px;
+}
+/* The controlsy */
+.carousel-control {
+    left: -12px;
+    height: 40px;
+    width: 40px;
+    background: none repeat scroll 0 0 #222222;
+    border: 4px solid #FFFFFF;
+    border-radius: 23px 23px 23px 23px;
+    margin-top: 90px;
+}
+.carousel-control.right {
+    right: -12px;
+}
+/* The indicators */
+.carousel-indicators {
+    right: 50%;
+    top: auto;
+    bottom: -10px;
+    margin-right: -19px;
+}
+/* The colour of the indicators */
+.carousel-indicators li {
+    background: #cecece;
+}
+.carousel-indicators .active {
+    background: #428bca;
 }

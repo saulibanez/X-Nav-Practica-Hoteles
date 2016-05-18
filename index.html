@@ -9,13 +9,14 @@
 		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
 		<link href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" rel="stylesheet">
 		<link href="css/hoteles.css" rel="stylesheet">
+		<link href="css/jquery-ui.css" rel="stylesheet">
 
 		<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.3.min.js"></script>
 		<script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
 		<script type="text/javascript" src="alojamientos.js"></script>
 		<script type="text/javascript" src="js/hoteles.js"></script>
 		<script type="text/javascript" src="js/bootstrap-tabcollapse.js"></script>
-
+		<script type="text/javascript" src="js/jquery-ui.js"></script>
 	</head>
 
 	<body>
@@ -36,42 +37,95 @@
 			</nav>
 		</header>
 
-		<div class="col-md-8">
+		<div class="col-md-9">
 			<div class="container" id="navegacion" style="margin-top: 50px;">
 				<ul id="myTab" class="nav nav-tabs" style="margin-bottom: 15px;">
 					<li class="active"><a href="#map" data-toggle="tab">Mapa</a></li>
+					<li><a href="#descripcion" data-toggle="tab">Descripción del hotel</a></li>
 					<li><a href="#colecciones" data-toggle="tab">Colecciones</a></li>
 					<li><a href="#alojados" data-toggle="tab">Alojados</a></li>
 				</ul>
 
 				<div id="myTabContent" class="tab-content" >
-					<div class="tab-pane fade in active" id="map"></div>				
+					<div class="tab-pane fade in active" id="map"></div>
+					<div class="tab-pane fade" id="descripcion">
+						<article class="post clearfix">
+							<!-- <a href="#" class="thumb pull-left"> -->
+								<!-- <img class="hidden-xs hidden-sm" id="carousel" alt=""> -->
+							<div class="col-md-4">
+							<div id="Carousel" class="carousel slide">
+				                 
+								<ol class="carousel-indicators">
+									<li data-target="#Carousel" data-slide-to="0" class="active"></li>
+									<li data-target="#Carousel" data-slide-to="1"></li>
+									<li data-target="#Carousel" data-slide-to="2"></li>
+									<li data-target="#Carousel" data-slide-to="3"></li>
+								</ol>
+				                 
+				                <!-- Carousel items -->
+								<div class="carousel-inner">
+				                    
+								<div class="item active">
+									<div class="row">
+										<div class="col-md-3"><img id="1" style="max-width:100%;"></div>
+									</div><!--.row-->
+								</div><!--.item-->
+								<div class="item">
+									<div class="row">
+										<div class="col-md-3"><img  id="2" style="max-width:100%;"></div>
+									</div><!--.row-->
+								</div><!--.item-->
+								<div class="item">
+									<div class="row">
+										<div class="col-md-3"><img  id="3" style="max-width:100%;"></div>
+									</div><!--.row-->
+								</div><!--.item-->
+								<div class="item">
+									<div class="row">
+										<div class="col-md-3"><img  id="4" style="max-width:100%;"></div>
+									</div><!--.row-->
+								</div><!--.item-->
+				                 
+								</div><!--.carousel-inner-->
+									<a data-slide="prev" href="#Carousel" class="left carousel-control">‹</a>
+									<a data-slide="next" href="#Carousel" class="right carousel-control">›</a>
+								</div><!--.Carousel-->
+							</div>
+
+				            <!-- </a> -->
+							<p class="post-contenido text-justify" id ="desc"></p>
+						</article>		
+					</div>
 					<div class="tab-pane fade" id="colecciones">
-						<div class="categoria col-md-5" id="categoria">
-							<h5><b><u>CATEGORIA</u></b></h5>
-							<div class="category" id="1_star"><p>Hoteles 1 estrellas</p></div>
-							<div class="category" id="2_star"><p>Hoteles 2 estrellas</p></div>
-							<div class="category" id="3_star"><p>Hoteles 3 estrellas</p></div>
-							<div class="category" id="4_star"><p>Hoteles 4 estrellas</p></div>
-							<div class="category" id="5_star"><p>Hoteles 5 estrellas</p></div>
+						<form id="form">
+							<div class="col-md-3" id="newcol">
+								<label>Nueva colección:</label>
+								<input id="date" type="text" class="form-control"  placeholder="Nombre...">
+								<br><input type="submit" class="btn btn-primary" value="Crear Colección">
+							</div>
+						</form>
+						
+						<div class="attributos col-md-3" id="atributos">
+							<label>Colecciones:</label>
+							<div id="attr"><ul></ul></div>
 						</div>
-						<div class="attributos col-md-5" id="atributos">
-							<h5><b><u>ATRIBUTOS</u></b></h5>
-							<div id="attr"></div>
-						</div>
-						<div class="listado col-md-5" id="listado">
-							<h5><b><u>LISTADO DE HOTELES</u></b></h5>
-							<div id="list_hoteles"></div>
+						<div class="listado col-md-3" id="listado">
+							<label>Nombre de la colección:</label>
+							<div id="name_col"><ul></ul></div>
+							<br>
+							<label>Listado de hoteles:</label>
+							<div id="list_hoteles"><ul></ul></div>
 						</div>
 					</div>
 					<div class="tab-pane fade" id="alojados">
 						<p>Alojados</p>
 					</div>
 				</div>
+				
 			</div>
 		</div>
 
-		<div class="col-md-4" id="sidebar" role="navigation" style="float:left">
+		<div class="col-md-3" id="sidebar" role="navigation" style="float:left">
 			<div class="well sidebar-nav">
 				<ul class="nav" id="scroll">
 					<button id="get" class="btn btn-primary">Get hotels!</button>

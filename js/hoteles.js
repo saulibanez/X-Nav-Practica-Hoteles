@@ -1,9 +1,39 @@
-var collection = {};
+var collection = new Object ();
+var collectionUser = new Object ();
+var nameHotel = "";
+var apiKey = 'AIzaSyBYWVrkrCDrCGEqe-QQi3reE9Spmp3yH8w';
+var datos = [];
 
 function viewStar(){
 	console.log("veo estrellas");
 	var cpylist = list;
 	$('#attr').html(cpylist);
+}
+
+function handleClientLoad() {
+	gapi.client.setApiKey(apiKey);
+}
+
+// Load the API and make an API call.  Display the results on the screen.
+function makeApiCall(id_user, mode) {
+	gapi.client.load('plus', 'v1', function() {
+		var request = gapi.client.plus.people.get({
+			'userId': id_user
+		});
+
+		request.execute(function(resp) {
+			var heading = document.createElement('h4');
+			var image = document.createElement('img');
+			image.src = resp.image.url;
+			heading.appendChild(image);
+			heading.appendChild(document.createTextNode(resp.displayName));
+
+			if (mode == "new"){
+				collectionUser[nameHotel].push(id_user);
+			}
+			document.getElementById('profile').appendChild(heading);
+		});
+	});
 }
 
 function show_accomodation(){
@@ -13,6 +43,7 @@ function show_accomodation(){
 	var lon = accomodation.geoData.longitude;
 	var url = accomodation.basicData.web;
 	var name = accomodation.basicData.name;
+	nameHotel = name;
 	var desc = accomodation.basicData.body;
 	var cat = accomodation.extradata.categorias.categoria.item[1]['#text'];
 	var subcat = accomodation.extradata.categorias.categoria.subcategorias.subcategoria.item[1]['#text'];
@@ -31,6 +62,7 @@ function show_accomodation(){
 
 	map.setView([lat, lon], 15);
 	$('#desc').html('<h2>' + name + '</h2>'	+ '<p>Type: ' + cat + ', subtype: ' + subcat + '</p>' + desc); // + '<img src="' + img + '"">');
+	$('#name_prof').html('<h2>' + name + '</h2>'	+ '<p>Type: ' + cat + ', subtype: ' + subcat + '</p>' + desc);
 	
 	var img = new Array();
 	if(accomodation.multimedia != null){
@@ -38,12 +70,17 @@ function show_accomodation(){
     		img[i] = accomodation.multimedia.media[i].url;
     	}
     }
-    // console.log(img);
-    $('#1').html('<img src="' + img[0] + '"">');
-    $('#2').html('<img src="' + img[1] + '"">');
-    $('#3').html('<img src="' + img[2] + '"">');
-    $('#4').html('<img src="' + img[4] + '"">');
 
+    $('#im1').html('<img src="' + img[0] + '"">');
+    $('#im2').html('<img src="' + img[1] + '"">');
+    $('#im3').html('<img src="' + img[2] + '"">');
+    $('#im4').html('<img src="' + img[4] + '"">');
+
+
+	$("#profile").html("");
+	collectionUser[name].forEach(function(n){
+		makeApiCall(n,"null");
+	});
 };
 
 function get_accomodations(){
@@ -55,6 +92,8 @@ function get_accomodations(){
     list = list + '<ul>'
     for (var i = 0; i < accomodations.length; i++) {
       list = list + '<li no=' + i + '>' + accomodations[i].basicData.title + '</li>';
+      var googleplus = [];
+      collectionUser[accomodations[i].basicData.title] = googleplus;
     }
     list = list + '</ul>';
     $('#list').html(list);
@@ -84,15 +123,34 @@ $(document).ready(function() {
 		collection[new_col] = alojamiento;
 
 		$("#attr").click(function(event){
-		var coll = event.target.textContent;
-		$("#name_col ul").html(coll)
+			var coll = event.target.textContent;
+			$("#name_col ul").html(coll)
 
-		$("#list_hoteles ul").html("");
-		var hotel;
+			$("#list_hoteles ul").html("");
+			var hotel;
 			collection[coll].forEach(function(n){
 				hotel = n.basicData.name;
 				$("#list_hoteles ul").append("<li>" + hotel + "</li>");
 			});
+		});
+
+		$("#save").click(function(event){
+			var token = $("#token").val();
+			var repo = $("#repo").val();
+			var file = $("#file").val();
+			var github = new Github({token:token,auth:"oauth"});
+
+			// console.log("name: "+ alojamiento);
+			// collection[new_col].forEach(function(n){
+			// 	hotel = n.basicData.name;
+			// 	console.log(hotel);
+				
+			// });
+
+			var texto = JSON.stringify(collection);
+			var repository = github.getRepo("saulibanez", repo);
+			repository.write("master", file, texto, "file", function(err){});
+
 		});
 	});
 
@@ -114,9 +172,23 @@ $(document).ready(function() {
 		}
 	});
 
+	$("#form2").submit(function(event) {
+		event.preventDefault();
+
+		var id_user = $("#perfil")[0].value;
+		$("#perfil")[0].value = "";
+		if (id_user == ""){
+			return;
+		}
+		if(nameHotel == ""){
+			return;
+		}
+		makeApiCall(id_user, "new");
+
+	});
+
 	$('#Carousel').carousel({
         interval: 5000
     });
-
 
 });

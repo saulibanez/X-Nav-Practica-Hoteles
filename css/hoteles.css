@@ -29,7 +29,7 @@
     overflow-y:scroll; 
 }
 
-#listado, #atributos {
+#listado, #atributos, #list_profiles, #profiles {
     width:35%;
     height: 350px;
     overflow-y:scroll; 
@@ -54,10 +54,6 @@
 .post .thumb {
     margin-right: 10px;
     width: 40%;
-}
-
-.post .thumb img {
-    width: 100%;
 }
 
 .post .contenedor-botones {
@@ -94,4 +90,12 @@
 }
 .carousel-indicators .active {
     background: #428bca;
+}
+
+.carousel-inner img{
+    width: 420px;
+}
+
+#madrid {
+    width: 30%;
 }

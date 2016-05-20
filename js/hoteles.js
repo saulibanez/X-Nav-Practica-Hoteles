@@ -83,26 +83,26 @@ function show_accomodation(){
 	});
 };
 
-function get_accomodations(){
-  $.getJSON("alojamientos.json", function(data) {
-    $('#get').html('');
-    accomodations = data.serviceList.service
-    var list = '<p>Hotels found: ' + accomodations.length
-     + ' (click on any of them for details and location in the map)</p>'
-    list = list + '<ul>'
-    for (var i = 0; i < accomodations.length; i++) {
-      list = list + '<li no=' + i + '>' + accomodations[i].basicData.title + '</li>';
-      var googleplus = [];
-      collectionUser[accomodations[i].basicData.title] = googleplus;
-    }
-    list = list + '</ul>';
-    $('#list').html(list);
-    $('li').click(show_accomodation);
-	$('.category').click(viewStar);
-	$("#list li").draggable({revert:true,appendTo:"body",helper:"clone"});
-	// $("#list li").sortable({connectWith: ".connectedSortable"}).disableSelection();
-  });
-};
+	function get_accomodations(){
+		$.getJSON("alojamientos.json", function(data) {
+
+			$('#get').html('');
+			accomodations = data.serviceList.service
+			var list = '<p>Hotels found: ' + accomodations.length
+			+ ' (click on any of them for details and location in the map)</p>'
+			list = list + '<ul>'
+			for (var i = 0; i < accomodations.length; i++) {
+				list = list + '<li no=' + i + '>' + accomodations[i].basicData.title + '</li>';
+				var googleplus = [];
+				collectionUser[accomodations[i].basicData.title] = googleplus;
+			}
+			list = list + '</ul>';
+			$('#list').html(list);
+			$('li').click(show_accomodation);
+			$('.category').click(viewStar);
+			$("#list li").draggable({revert:true,appendTo:"body",helper:"clone"});
+		});
+	};
 
 $(document).ready(function() {
 	map = L.map('map').setView([40.4175, -3.708], 11);
@@ -140,17 +140,38 @@ $(document).ready(function() {
 			var file = $("#file").val();
 			var github = new Github({token:token,auth:"oauth"});
 
-			// console.log("name: "+ alojamiento);
-			// collection[new_col].forEach(function(n){
-			// 	hotel = n.basicData.name;
-			// 	console.log(hotel);
-				
-			// });
-
 			var texto = JSON.stringify(collection);
 			var repository = github.getRepo("saulibanez", repo);
-			repository.write("master", file, texto, "file", function(err){});
+			repository.write("gh-pages", file, texto, "file", function(err){});
+		});
+	});
 
+	$("#load").click(function(event){
+		var token = $("#token2").val();
+		var repo = $("#repo2").val();
+		var file = $("#file2").val();
+		var github = new Github({token:token,auth:"oauth"});
+		var repository = github.getRepo("saulibanez", repo);
+
+		var url = "https://api.github.com/repos/saulibanez/" + repo + "/contents/" + file;
+		$.getJSON(url).done(function(data){
+			var json_parse = JSON.parse(decodeURIComponent(escape(atob(data.content))));
+			
+			$.each(json_parse,function(key,value){
+				collection[key] = value;
+				$("#attr ul").html("<li>" + key + "</li>");
+			});
+
+			$("#attr li").click(function(event){
+				var coll = event.target.textContent;
+				$("#name_col").html(coll);
+				$("#list_hoteles ul").html("");
+				var hotel;
+				collection[coll].forEach(function(n){
+					hotel = n.basicData.name;
+					$("#list_hoteles ul").append("<li>" + hotel + "</li>");
+				});
+			});
 		});
 	});
 

@@ -18,6 +18,22 @@
 		<script type="text/javascript" src="js/bootstrap-tabcollapse.js"></script>
 		<script type="text/javascript" src="js/jquery-ui.js"></script>
 		<script type="text/javascript" src="js/github.js"></script>
+
+		<script>
+			function bailaCalvito(){
+			var tiempo = 1000;//tiempo en milisegundos
+			var arrImagenes = ['images/pocoyize.jpg','images/pocoyizeUnBrazo.jpg', 'images/pocoyizedosBrazo.jpg', 'images/pocoyizebrazoizq.jpg'];
+				img = document.getElementById('rotativo');
+
+				//cargar la 1er imagen
+				img.src = arrImagenes[0];
+				var i=1;
+				setInterval(function(){
+					img.src = arrImagenes[i];
+					i = (i == arrImagenes.length-1)? 0 : (i+1);
+				}, tiempo);
+			}
+		</script>
 	</head>
 
 	<body>
@@ -100,10 +116,9 @@
 					<div class="tab-pane fade" id="colecciones">
 						<form id="form">
 							<div class="col-md-3" id="newcol">
-								<label>Nueva colección:</label>
-								<input id="date" type="text" class="form-control">
 								<br><input type="submit" class="btn btn-primary" value="Crear Colección">
-								<br>
+								<input id="date" type="text" class="form-control" placeholder="colección">
+								
 								<br><input id="save" type="submit" class="btn btn-primary" value="Guardar Colección">
 								<input id="token" type="text" class="form-control" placeholder="token">
 								<input id="repo" type="text" class="form-control" placeholder="nombre del repositorio">
@@ -111,6 +126,9 @@
 								<div id="repodata"></div>
 								
 								<br><input id="load" type="submit" class="btn btn-primary" value="Cargar Colección">
+								<input id="token2" type="text" class="form-control" placeholder="token">
+								<input id="repo2" type="text" class="form-control" placeholder="nombre del repositorio">
+								<input id="file2" type="text" class="form-control" placeholder="fichero">
 							</div>
 						</form>
 						
@@ -129,9 +147,9 @@
 					<div class="tab-pane fade" id="alojados">
 						<form id="form2">
 							<div class="col-md-3" id="newperfil">
-								<label>Nuevo perfil:</label>
-								<input id="perfil" type="text" class="form-control">
 								<br><input id="authorize-button" type="submit" class="btn btn-primary" value="Introducir Usuario">
+								<input id="perfil" type="text" class="form-control"  placeholder="usuario google+">
+								
 							</div>
 						</form>
 						
@@ -160,20 +178,24 @@
 			</div>
 		</div>
 
-		<div class="col-md-8">
-			<!-- <p id="desc"></p>
-			<p id="carousel"></p> -->
+		<div class="col-md-9 hidden-xs hidden-sm">
+			<br>
+			<h4>Para ver esta página de hoteles de madrid, se te recomienda escuchar esta mítica cancion, además, puedes verme bailar si pulsas el botón de baile, ¿Sabrás quien la canta? :)</h4>
+			
+			<audio id="player" src="pongamos_que_hablo_de_madrid.mp3"></audio>
+			<!-- NOTA: NO ME DEJA SUBIR EL AUDIO A GITHUB, Y LA URL QUE HE ENCONTRADO TAMPOCO, ASIQUE PARA ESCUCHAR LA CANCION SE DEBE PONER EL TITULO DE SRC EN LA CANCION DESCARGADA -->
+			<div>
+				<button class="btn btn-success" onclick="document.getElementById('player').play();">Reproducir</button>
+				<button class="btn btn-danger" onclick="document.getElementById('player').pause();">Pausa</button>
+				<button class="btn btn-warning" onclick="bailaCalvito()" onload="bailaCalvito()">Baile</button>
+				<img id="rotativo"/>
+				<button class="btn btn-info" onclick="document.getElementById('player').volume += 0.1;">Subir Volumen</button>
+				<button class="btn btn-info" onclick="document.getElementById('player').volume -= 0.1;">Bajar Volumen</button>
+			</div>
 		</div>
 
-		<div class="col-md-4 hidden-xs hidden-sm">
-			<!-- <audio id="player" src="Aleluya.mp3">
-			</audio>
-			<div>
-			    <button onclick="document.getElementById('player').play();">Reproducir</button>
-			    <button onclick="document.getElementById('player').pause();">Pausa</button>
-			    <button onclick="document.getElementById('player').volume += 0.1;">Subir Volumen</button>
-			    <button onclick="document.getElementById('player').volume -= 0.1;">Bajar Volumen</button>
-			</div> -->
+		<div class="col-md-3 hidden-xs hidden-sm">
+	
 		</div>
 
 		<!-- Bootstrap -->

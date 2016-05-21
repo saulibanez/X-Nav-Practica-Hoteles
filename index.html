@@ -119,16 +119,7 @@
 								<br><input type="submit" class="btn btn-primary" value="Crear Colección">
 								<input id="date" type="text" class="form-control" placeholder="colección">
 								
-								<br><input id="save" type="submit" class="btn btn-primary" value="Guardar Colección">
-								<input id="token" type="text" class="form-control" placeholder="token">
-								<input id="repo" type="text" class="form-control" placeholder="nombre del repositorio">
-								<input id="file" type="text" class="form-control" placeholder="fichero">
-								<div id="repodata"></div>
-								
-								<br><input id="load" type="submit" class="btn btn-primary" value="Cargar Colección">
-								<input id="token2" type="text" class="form-control" placeholder="token">
-								<input id="repo2" type="text" class="form-control" placeholder="nombre del repositorio">
-								<input id="file2" type="text" class="form-control" placeholder="fichero">
+
 							</div>
 						</form>
 						
@@ -182,7 +173,7 @@
 			<br>
 			<h4 id="musica">Para ver esta página de hoteles de madrid, se te recomienda escuchar esta mítica cancion, además, puedes verme bailar si pulsas el botón de baile, ¿Sabrás quien la canta? :)</h4>
 			
-			<audio id="player" src="pongamos_que_hablo_de_madrid.mp3"></audio>
+			<audio id="player" src="../pongamos_que_hablo_de_madrid.mp3"></audio>
 			<!-- NOTA: NO ME DEJA SUBIR EL AUDIO A GITHUB, Y LA URL QUE HE ENCONTRADO TAMPOCO, ASIQUE PARA ESCUCHAR LA CANCION SE DEBE PONER EL TITULO DE SRC EN LA CANCION DESCARGADA -->
 			<div>
 				<button class="btn btn-success" onclick="document.getElementById('player').play();">Reproducir</button>
@@ -194,7 +185,20 @@
 			</div>
 		</div>
 
-		<div class="col-md-3 hidden-xs hidden-sm">
+		<div class="col-md-3">
+
+			<button id = "guardar" class="guardar btn btn-primary">Guardar Colección</button><br>
+			<br><input id="save" type="submit" class="btn btn-primary" value="Guardar Colección">
+			<input id="token" type="text" class="form-control" placeholder="token">
+			<input id="repo" type="text" class="form-control" placeholder="nombre del repositorio">
+			<input id="file" type="text" class="form-control" placeholder="fichero">
+			<div id="repodata"></div>
+
+			<button id = "cargar" class="cargar btn btn-primary">Cargar Colección</button>
+			<br><input id="load" type="submit" class="btn btn-primary" value="Cargar Colección">
+			<input id="token2" type="text" class="form-control" placeholder="token">
+			<input id="repo2" type="text" class="form-control" placeholder="nombre del repositorio">
+			<input id="file2" type="text" class="form-control" placeholder="fichero">
 	
 		</div>
 
@@ -205,3 +209,5 @@
 	</body>
 
 </html>
+
+<!-- http://bootsnipp.com/snippets/featured/modal-login-with-jquery-effects -->

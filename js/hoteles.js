@@ -85,7 +85,8 @@ function show_accomodation(){
 
 	function get_accomodations(){
 		$.getJSON("alojamientos.json", function(data) {
-
+			$("#guardar").show();
+			$("#cargar").show();
 			$('#get').html('');
 			accomodations = data.serviceList.service
 			var list = '<p>Hotels found: ' + accomodations.length
@@ -105,6 +106,15 @@ function show_accomodation(){
 	};
 
 $(document).ready(function() {
+	$("#guardar, #cargar").hide();
+	$("#token").hide();
+	$("#repo").hide();
+	$("#file").hide();
+	$("#save").hide();
+	$("#token2").hide();
+	$("#repo2").hide();
+	$("#file2").hide();
+	$("#load").hide();
 	map = L.map('map').setView([40.4175, -3.708], 11);
 	L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
 		attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
@@ -133,7 +143,14 @@ $(document).ready(function() {
 				$("#list_hoteles ul").append("<li>" + hotel + "</li>");
 			});
 		});
+	});
 
+	$("#guardar").click(function(event){
+		$("#guardar").hide();
+		$("#token").show();
+		$("#repo").show();
+		$("#file").show();
+		$("#save").show();
 		$("#save").click(function(event){
 			var token = $("#token").val();
 			var repo = $("#repo").val();
@@ -146,30 +163,39 @@ $(document).ready(function() {
 		});
 	});
 
-	$("#load").click(function(event){
-		var token = $("#token2").val();
-		var repo = $("#repo2").val();
-		var file = $("#file2").val();
-		var github = new Github({token:token,auth:"oauth"});
-		var repository = github.getRepo("saulibanez", repo);
 
-		var url = "https://api.github.com/repos/saulibanez/" + repo + "/contents/" + file;
-		$.getJSON(url).done(function(data){
-			var json_parse = JSON.parse(decodeURIComponent(escape(atob(data.content))));
-			
-			$.each(json_parse,function(key,value){
-				collection[key] = value;
-				$("#attr ul").html("<li>" + key + "</li>");
-			});
+	$("#cargar").click(function(event){
+		$("#cargar").hide();
+		$("#token2").show();
+		$("#repo2").show();
+		$("#file2").show();
+		$("#load").show();
+		$("#load").click(function(event){
+			var token = $("#token2").val();
+			var repo = $("#repo2").val();
+			var file = $("#file2").val();
+			var github = new Github({token:token,auth:"oauth"});
+			var repository = github.getRepo("saulibanez", repo);
 
-			$("#attr li").click(function(event){
-				var coll = event.target.textContent;
-				$("#name_col").html(coll);
-				$("#list_hoteles ul").html("");
-				var hotel;
-				collection[coll].forEach(function(n){
-					hotel = n.basicData.name;
-					$("#list_hoteles ul").append("<li>" + hotel + "</li>");
+			var url = "https://api.github.com/repos/saulibanez/" + repo + "/contents/" + file;
+			$.getJSON(url).done(function(data){
+				var json_parse = JSON.parse(decodeURIComponent(escape(atob(data.content))));
+				
+				$.each(json_parse,function(key,value){
+					collection[key] = value;
+					console.log(key);
+					$("#attr ul").append("<li>" + key + "</li>");
+				});
+
+				$("#attr li").click(function(event){
+					var coll = event.target.textContent;
+					$("#name_col").html(coll);
+					$("#list_hoteles ul").html("");
+					var hotel;
+					collection[coll].forEach(function(n){
+						hotel = n.basicData.name;
+						$("#list_hoteles ul").append("<li>" + hotel + "</li>");
+					});
 				});
 			});
 		});

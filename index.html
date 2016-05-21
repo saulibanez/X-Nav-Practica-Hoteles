@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+		<title>Hoteles Madrid</title>
+
+		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+		<link href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" rel="stylesheet">
+		<link href="css/hoteles.css" rel="stylesheet">
+		<link href="css/jquery-ui.css" rel="stylesheet">
+
+		<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.3.min.js"></script>
+		<script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+		<script type="text/javascript" src="alojamientos.js"></script>
+		<script type="text/javascript" src="js/hoteles.js"></script>
+		<script type="text/javascript" src="js/bootstrap-tabcollapse.js"></script>
+		<script type="text/javascript" src="js/jquery-ui.js"></script>
+		<script type="text/javascript" src="js/github.js"></script>
+
+		<script>
+			function bailaCalvito(){
+			var tiempo = 1000;//tiempo en milisegundos
+			var arrImagenes = ['images/pocoyize.jpg','images/pocoyizeUnBrazo.jpg', 'images/pocoyizedosBrazo.jpg', 'images/pocoyizebrazoizq.jpg'];
+				img = document.getElementById('rotativo');
+
+				//cargar la 1er imagen
+				img.src = arrImagenes[0];
+				var i=1;
+				setInterval(function(){
+					img.src = arrImagenes[i];
+					i = (i == arrImagenes.length-1)? 0 : (i+1);
+				}, tiempo);
+			}
+		</script>
+	</head>
+
+	<body>
+		<header>
+			<nav class="navbar navbar-inverse navbar-static-top" role="navigation">
+				<div class="container">
+					<div class="navbar-header">
+						<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navegacion">
+							<span class="sr-only">Desplegar / Ocultar Menú</span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</button>
+						<img id="madrid" class="navbar-brand" src="images/madrid.png" height="30px" margin-top="-3px" margin-right="5px">
+						<a class="navbar-brand" href="#">Madrid Hoteles</a>
+					</div>
+				</div>
+			</nav>
+		</header>
+
+		<div class="col-md-9">
+			<div class="container" id="navegacion" style="margin-top: 50px;">
+				<ul id="myTab" class="nav nav-tabs" style="margin-bottom: 15px;">
+					<li class="active"><a href="#map" data-toggle="tab">Mapa</a></li>
+					<li><a href="#descripcion" data-toggle="tab">Descripción del hotel</a></li>
+					<li><a href="#colecciones" data-toggle="tab">Colecciones</a></li>
+					<li><a href="#alojados" data-toggle="tab">Alojados</a></li>
+				</ul>
+
+				<div id="myTabContent" class="tab-content" >
+					<div class="tab-pane fade in active" id="map"></div>
+					<div class="tab-pane fade" id="descripcion">
+						<article class="post clearfix">
+							<!-- <a href="#" class="thumb pull-left"> -->
+								<!-- <img class="hidden-xs hidden-sm" id="carousel" alt=""> -->
+							<div class="col-md-6 hidden-xs hidden-sm">
+								<div id="Carousel" class="carousel slide">
+					                 
+									<ol class="carousel-indicators">
+										<li data-target="#Carousel" data-slide-to="0" class="active"></li>
+										<li data-target="#Carousel" data-slide-to="1"></li>
+										<li data-target="#Carousel" data-slide-to="2"></li>
+										<li data-target="#Carousel" data-slide-to="3"></li>
+									</ol>
+					                 
+					                <!-- Carousel items -->
+									<div class="carousel-inner">
+					                    
+										<div id="imagen" class="item active">
+											<div class="row">
+												<div class="col-md-3"><img id="im1" style="max-width:100%;"></div>
+											</div><!--.row-->
+										</div><!--.item-->
+										<div id="imagen" class="item">
+											<div class="row">
+												<div class="col-md-3"><img  id="im2" style="max-width:100%;"></div>
+											</div><!--.row-->
+										</div><!--.item-->
+										<div id="imagen" class="item">
+											<div class="row">
+												<div class="col-md-3"><img  id="im3" style="max-width:100%;"></div>
+											</div><!--.row-->
+										</div><!--.item-->
+										<div id="imagen" class="item">
+											<div class="row">
+												<div class="col-md-3"><img  id="im4" style="max-width:100%;"></div>
+											</div><!--.row-->
+										</div><!--.item-->
+						                 
+									</div><!--.carousel-inner-->
+									<a data-slide="prev" href="#Carousel" class="left carousel-control">‹</a>
+									<a data-slide="next" href="#Carousel" class="right carousel-control">›</a>
+								</div><!--.Carousel-->
+							</div>
+
+				            <!-- </a> -->
+							<p class="post-contenido text-justify" id ="desc"></p>
+						</article>		
+					</div>
+					<div class="tab-pane fade" id="colecciones">
+						<form id="form">
+							<div class="col-md-3" id="newcol">
+								<br><input type="submit" class="btn btn-primary" value="Crear Colección">
+								<input id="date" type="text" class="form-control" placeholder="colección">
+								
+
+							</div>
+						</form>
+						
+						<div class="atributos col-md-3" id="atributos">
+							<label>Colecciones:</label>
+							<div id="attr"><ul></ul></div>
+						</div>
+						<div class="listado col-md-3" id="listado">
+							<label>Nombre de la colección:</label>
+							<div id="name_col"><ul></ul></div>
+							<br>
+							<label>Listado de hoteles:</label>
+							<div id="list_hoteles"><ul></ul></div>
+						</div>
+					</div>
+					<div class="tab-pane fade" id="alojados">
+						<form id="form2">
+							<div class="col-md-3" id="newperfil">
+								<br><input id="authorize-button" type="submit" class="btn btn-primary" value="Introducir Usuario">
+								<input id="perfil" type="text" class="form-control"  placeholder="usuario google+">
+								
+							</div>
+						</form>
+						
+						<div class="profiles col-md-3" id="profiles">
+							<label>Usuarios:</label>
+							<div id="profile"></div>
+						</div>
+
+						<div class="list_profiles col-md-3" id="list_profiles">
+							<label>Descripción del hotel:</label>
+							<div id="name_prof"><ul></ul></div>
+							
+						</div>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+
+		<div class="col-md-3" id="sidebar" role="navigation" style="float:left">
+			<div class="well sidebar-nav">
+				<ul class="nav" id="scroll">
+					<button id="get" class="btn btn-primary">Get hotels!</button>
+					<div id="list"></div>
+				</ul>
+			</div>
+		</div>
+
+		<div class="col-md-9 hidden-xs hidden-sm">
+			<br>
+			<h4 id="musica">Para ver esta página de hoteles de madrid, se te recomienda escuchar esta mítica cancion, además, puedes verme bailar si pulsas el botón de baile, ¿Sabrás quien la canta? :)</h4>
+			
+			<audio id="player" src="../pongamos_que_hablo_de_madrid.mp3"></audio>
+			<!-- NOTA: NO ME DEJA SUBIR EL AUDIO A GITHUB, Y LA URL QUE HE ENCONTRADO TAMPOCO, ASIQUE PARA ESCUCHAR LA CANCION SE DEBE PONER EL TITULO DE SRC EN LA CANCION DESCARGADA -->
+			<div>
+				<button class="btn btn-success" onclick="document.getElementById('player').play();">Reproducir</button>
+				<button class="btn btn-danger" onclick="document.getElementById('player').pause();">Pausa</button>
+				<button class="btn btn-warning" onclick="bailaCalvito()" onload="bailaCalvito()">Baile</button>
+				<img id="rotativo"/>
+				<button class="btn btn-info" onclick="document.getElementById('player').volume += 0.1;">Subir Volumen</button>
+				<button class="btn btn-info" onclick="document.getElementById('player').volume -= 0.1;">Bajar Volumen</button>
+			</div>
+		</div>
+
+		<div class="col-md-3">
+
+			<button id = "guardar" class="guardar btn btn-primary">Guardar Colección</button><br>
+			<br><input id="save" type="submit" class="btn btn-primary" value="Guardar Colección">
+			<input id="token" type="text" class="form-control" placeholder="token">
+			<input id="repo" type="text" class="form-control" placeholder="nombre del repositorio">
+			<input id="file" type="text" class="form-control" placeholder="fichero">
+			<div id="repodata"></div>
+
+			<button id = "cargar" class="cargar btn btn-primary">Cargar Colección</button>
+			<br><input id="load" type="submit" class="btn btn-primary" value="Cargar Colección">
+			<input id="token2" type="text" class="form-control" placeholder="token">
+			<input id="repo2" type="text" class="form-control" placeholder="nombre del repositorio">
+			<input id="file2" type="text" class="form-control" placeholder="fichero">
+	
+		</div>
+
+		<!-- Bootstrap -->
+		<script type="text/javascript" src="js/bootstrap.min.js"></script>
+		<script src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
+
+	</body>
+
+</html>
+
+<!-- http://bootsnipp.com/snippets/featured/modal-login-with-jquery-effects -->
